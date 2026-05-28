@@ -1,0 +1,25 @@
+# Core single-cell stack
+scanpy>=1.9
+anndata>=0.9
+episcanpy
+scib
+
+# Deep learning
+torch>=2.0
+lightning>=2.0
+skorch
+einops
+
+# Diffusion-specific
+blobfile
+
+# Numerics / utilities
+numpy
+pandas
+scipy
+scikit-learn
+pyyaml
+tqdm
+matplotlib
+seaborn
+adjustText

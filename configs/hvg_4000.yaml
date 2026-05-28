@@ -1,0 +1,214 @@
+# Random seed to ensure reproducible results.
+
+# Spectrum processing options.
+n_peaks: 200
+min_mz: 50.52564895  # 1.0005079 * 50.5
+max_mz: 2500.0
+min_intensity: 0.01
+remove_precursor_tol: 2.0  # Da
+max_charge: 10
+precursor_mass_tol: 50  # ppm
+isotope_error_range: [0, 1]
+
+
+# dataloader
+n_workers: 4
+
+# training params
+warmup_iters: 100_000
+max_iters: 300_000
+num_sanity_val_steps: 0
+
+# val freq choose one of the following
+val_check_interval: 
+check_val_every_n_epoch: 1
+
+learning_rate: 5e-5
+weight_decay: 1e-5
+max_epochs: 1
+
+save_weights_only: True
+model_save_folder_path: "./save_models/"
+logger_save_path: "./ins_train_9.log"
+
+# don't change this
+devices: 1
+
+# checkpointing options.
+save_top_k: -1
+
+
+# Model architecture options.
+scButterfly:
+  use_hvg_flag: true
+  n_top_genes: 4000
+  fpeaks: 0.005
+  R_encoder_nlayer: 2
+  A_encoder_nlayer: 2
+  R_decoder_nlayer: 2
+  A_decoder_nlayer: 2
+  R_encoder_dim_list: 256,128
+  A_encoder_dim_list: 128,
+  R_decoder_dim_list: 128,256
+  A_decoder_dim_list: 128,
+  R_encoder_act_list: LeakyReLU,LeakyReLU
+  A_encoder_act_list: LeakyReLU,LeakyReLU
+  R_decoder_act_list: LeakyReLU,LeakyReLU
+  A_decoder_act_list: LeakyReLU,Sigmoid
+  translator_embed_dim: 128
+  translator_input_dim_r: 128
+  translator_input_dim_a: 128
+  translator_embed_act_list: LeakyReLU,LeakyReLU,LeakyReLU
+  discriminator_nlayer: 1
+  discriminator_dim_list_R: 128,
+  discriminator_dim_list_A: 128,
+  discriminator_act_list: Sigmoid,
+  dropout_rate: 0.1
+  R_noise_rate: 0.5
+  A_noise_rate: 0.3
+# Training options.
+  R_encoder_lr: 0.001
+  A_encoder_lr: 0.001
+  R_decoder_lr: 0.001
+  A_decoder_lr: 0.001
+  R_translator_lr: 0.001
+  A_translator_lr: 0.001
+  translator_lr: 0.001
+  discriminator_lr: 0.005
+  R2R_pretrain_epoch: 100
+  A2A_pretrain_epoch: 100
+  lock_encoder_and_decoder: false
+  translator_epoch: 200
+  patience: 50
+  kl_mean: true
+  R_pretrain_kl_warmup: 50
+  A_pretrain_kl_warmup: 50
+  translation_kl_warmup: 50
+  load_model: null
+  batch_size: 64
+
+# Model architecture options.
+BABEL:
+  use_hvg_flag: true
+  n_top_genes: 4000
+  fpeaks: 0.005
+  nofilter: false            # Whether or not to perform filtering (only applies with --data argument)
+  linear: false              # Do clustering data splitting in linear instead of log space
+  clustermethod: "leiden"    # Clustering method to determine data splits ("leiden" or "louvain")
+  validcluster: 0           # Cluster ID to use as valid cluster
+  testcluster: 1            # Cluster ID to use as test cluster
+  naive: false              # Use a naive model instead of lego model
+  hidden:                   # Hidden dimensions (list)
+    - 16
+  pretrain: ""              # params.pt file to use to warm initialize the model
+  lossweight:               # Relative loss weight (list)
+    - 1.33
+  optim: "adam"             # Optimizer to use (must match OPTIMIZER_DICT keys)
+  lr:                       # Learning rate (list)
+    - 0.01
+  batchsize:                # Batch size (list)
+    - 128
+  earlystop: 25             # Early stopping after N epochs
+  device: 0                 # Device to train on
+  ext: "pdf"                # Output format for plots ("png", "pdf", "jpg")
+
+# Model architecture options.
+multiDGD:
+  n_top_genes: 4000
+  batch_size: 128
+  max_epochs: 500 # 2--> 500
+  n_jobs: 1
+  fpeaks: 0.005
+
+# Model architecture options.
+JAMIE:
+  n_top_genes: 4000
+  batch_size: 128
+  fpeaks: 0.005
+  dist_method: euclidean
+  dropout: 0
+  epoch_DNN: 10000
+  log_DNN: 500
+  loss_weights:
+  - 1
+  - 1
+  - 1
+  - 1
+  min_epochs: 500
+  output_dim: 32
+  pca_dim:
+  - 512
+  - 512
+  use_early_stop: true
+
+# Model architecture options.
+scPair:
+  use_hvg_flag: true
+  fpeaks: 0.005
+  n_top_genes: 4000
+  batchnorm: true
+  dropout_rate: 0.1
+  hidden_layer:
+    - 800
+    - 30
+  infer_library_size_atac: true
+  infer_library_size_rna: false
+  layernorm: true
+  learning_rate_prediction: 0.001
+  max_epochs: 1000
+  sample_factor_atac: false
+  sample_factor_rna: true
+
+scDiffusionX:
+  use_hvg_flag: true
+  fpeaks: 0.005
+  n_top_genes: 4000
+  data_dir: ""
+  schedule_sampler: "uniform"
+  lr: 0.0001
+  t_lr: 0.0001
+  weight_decay: 0.0001
+  lr_anneal_steps: 500000
+  batch_size: 128
+  num_workers: 4
+  microbatch: -1
+  ema_rate: "0.9999"
+  log_interval: 100
+  devices: null
+  save_interval: 100000
+  resume_checkpoint: ""
+  use_fp16: false
+  fp16_scale_growth: 0.001
+  use_db: false
+  sample_fn: "dpm_solver++"
+  frame_gap: 1
+  num_class: null
+  condition: "cell_type"
+  rna_dim: 
+    - 1
+    - 100
+  atac_dim:
+    - 1
+    - 100
+  num_channels: 160
+  num_res_blocks: 1
+  num_heads: 4
+  num_heads_upsample: -1
+  num_head_channels: -1
+  cross_attention_resolutions: "2,4,8"
+  cross_attention_windows: "1,4,8"
+  cross_attention_shift: true
+  channel_mult: ""
+  dropout: 0.0
+  class_cond: false
+  use_checkpoint: false
+  use_scale_shift_norm: true
+  resblock_updown: true
+  learn_sigma: false
+  diffusion_steps: 1000
+  noise_schedule: "linear"
+  timestep_respacing: ""
+  use_kl: false
+  predict_xstart: false
+  rescale_timesteps: false
+  rescale_learned_sigmas: false

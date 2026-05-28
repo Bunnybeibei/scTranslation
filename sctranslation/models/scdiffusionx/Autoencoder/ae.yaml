@@ -1,0 +1,81 @@
+logger:
+  offline: true
+  id: null
+  anonymous: null
+  project: logs
+  log_model: false
+
+hydra:
+  run:
+    dir: outputs/logs/run_files/${now:%Y-%m-%d}_${now:%H-%M-%S}
+  sweep:
+    dir: outputs/logs/multiruns/${now:%Y-%m-%d}_${now:%H-%M-%S}
+
+early_stopping:
+  monitor: valid/loss
+  patience: 10000
+  mode: min
+  min_delta: 0.0
+  verbose: false
+  strict: true
+  check_finite: true
+  stopping_threshold: null
+  divergence_threshold: null
+  check_on_train_epoch_end: null
+
+training_config:
+  batch_size: 256
+  use_early_stopping: false
+
+trainer:
+  max_epochs: 300
+  accelerator: gpu
+  devices: 1
+  check_val_every_n_epoch: 1
+  log_every_n_steps: 1
+  detect_anomaly: true
+  deterministic: false
+  gradient_clip_val: 1
+
+encoder:
+  encoder_kwargs:
+    rna:
+      dims: [512, 300, 100]
+      norm: true
+      norm_type: layernorm
+      dropout: false
+      dropout_p: 0.0
+    atac:
+      dims: [1024, 512, 100]
+      norm: true
+      norm_type: layernorm
+      dropout: false
+      dropout_p: 0.0
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  covariate_specific_theta: false
+  multimodal: true
+  is_binarized: true
+  encoder_multimodal_joint_layers: null
+
+checkpoints:
+  filename: epoch_{epoch:01d}
+  monitor: valid/loss
+  mode: min
+  every_n_epochs: 20
+  save_last: true
+  auto_insert_metric_name: false
+
+dataset:
+  valid_path: null
+  layer_key: X_counts
+  covariate_keys: [cell_type]
+  conditioning_covariate: cell_type
+  theta_covariate: cell_type
+  subsample_frac: 1
+  one_hot_encode_features: false
+  split_rates: [0.9, 0.1]
+  cov_embedding_dimensions: 100
+  multimodal: true
+  is_binarized: true
+  encoder_type: learnt_autoencoder

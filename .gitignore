@@ -1,0 +1,38 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Logs and temporary artifacts
+*.log
+error_log*.txt
+
+# Benchmark outputs (regenerated on each run)
+output/
+output*/
+data/
+data*/
+
+# Datasets and checkpoints (kept out of VCS)
+datasets/
+*.h5ad
+*.pt
+*.pkl
+
+# OS artifacts
+.DS_Store
+Thumbs.db

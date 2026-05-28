@@ -26,6 +26,7 @@ from sctranslation.utils.config import Config  # noqa: E402
 PREPROCESS = {
     "r": scDiffusionXRunner.preprocessing_pipeline_r,
     "a": scDiffusionXRunner.preprocessing_pipeline_a,
+    "p": scDiffusionXRunner.preprocessing_pipeline_p,
 }
 
 
@@ -86,10 +87,10 @@ def main():
                         help="Directory for evaluation outputs")
     parser.add_argument("--data_path", type=str, default="./data/scDiffusionX",
                         help="Directory for cached preprocessed data")
-    parser.add_argument("--modal1", type=str, choices=["r", "a"], default="r",
-                        help="Primary modality (r: RNA, a: ATAC)")
-    parser.add_argument("--modal2", type=str, choices=["r", "a"], default="a",
-                        help="Secondary modality (r: RNA, a: ATAC)")
+    parser.add_argument("--modal1", type=str, choices=["r", "a", "p"], default="r",
+                        help="Primary modality (r: RNA, a: ATAC, p: ADT)")
+    parser.add_argument("--modal2", type=str, choices=["r", "a", "p"], default="a",
+                        help="Secondary modality (r: RNA, a: ATAC, p: ADT)")
     args = parser.parse_args()
 
     run_pipeline(

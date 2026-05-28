@@ -10,7 +10,7 @@ A benchmark for cross-modality translation between single-cell modalities
 | JAMIE         | `sctranslation/models/jamie`               | RNA, ATAC, ADT |
 | multiDGD      | `sctranslation/models/multidgd`            | RNA, ATAC, ADT |
 | scPair        | `sctranslation/models/scpair`              | RNA, ATAC, ADT |
-| scDiffusionX  | `sctranslation/models/scdiffusionx`        | RNA, ATAC      |
+| scDiffusionX  | `sctranslation/models/scdiffusionx`        | RNA, ATAC, ADT |
 
 Every method is wrapped behind a uniform `Runner` interface
 (`train(...)`, `test(...)`, `preprocessing_pipeline_{r,a,p}`) so the same

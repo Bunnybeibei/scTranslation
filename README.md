@@ -1,4 +1,4 @@
-# ScTranslation
+# ScTranslation 🐰
 
 A benchmark for cross-modality translation between single-cell modalities
 (RNA ⇄ ATAC and RNA ⇄ ADT/Protein) covering six representative methods:

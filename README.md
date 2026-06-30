@@ -194,3 +194,14 @@ python tests/BABEL.py --mode train --data_name Brain --modal2 a \
 If you use this benchmark, please cite the accompanying paper as well as
 the original publications for each baseline (BABEL, scButterfly, JAMIE,
 multiDGD, scPair, scDiffusionX).
+```bibtex
+@misc{cheng2026sctranslationcomprehensivebenchmarksinglecell,
+      title={scTranslation: A Comprehensive Benchmark for Single-Cell Multi-Omics Modality Translation}, 
+      author={Jiabei Cheng and Jingbo Zhou and Jun Xia and Changkai Li and Zhen Lei and Chang Yu and Stan Z. Li},
+      year={2026},
+      eprint={2606.03906},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2606.03906}, 
+}
+```
